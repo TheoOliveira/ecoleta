@@ -20,11 +20,17 @@ function getCities(event) {
   const stateInput = document.querySelector('input[name=state]');
   const ufValue = event.target.value;
 
-  const indexState = event.target.selectedIndex;
-  console.log(indexState);
-  stateInput.value = event.target.options[indexState].text;
+  
+  const indexState = event.target.selectedIndex; // index da listagem do estado selecionado
+  stateInput.value = event.target.options[indexState].text; // texto do evento do estado selecionado
 
+  // api para listage dos municipios por uf
   const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`;
+
+  //inicia ou reinicia default
+  citiesSelect.innerHTML = '';
+  citiesSelect.disabled = true;
+
   fetch(url)
     .then((res) => res.json())
     .then((cities) => {
